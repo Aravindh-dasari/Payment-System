@@ -1,0 +1,123 @@
+-- Customeruser(customerid) refers to customer(customerid)
+
+
+ALTER TABLE `payments`.`customeruser` 
+ADD INDEX `fk_customerid_user_idx` (`customerid` ASC) VISIBLE;
+
+
+
+ALTER TABLE `payments`.`customeruser` 
+ADD CONSTRAINT `fk_customerid_user`
+  FOREIGN KEY (`customerid`)
+  REFERENCES `payments`.`customer` (`customerid`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+-- Logger(userid) Refers to customeruser(userid)
+
+
+ALTER TABLE `payments`.`logger` 
+ADD INDEX `fk_userid_logger_idx` (`userid` ASC) VISIBLE;
+
+
+
+ALTER TABLE `payments`.`logger` 
+ADD CONSTRAINT `fk_userid_logger`
+  FOREIGN KEY (`userid`)
+  REFERENCES `payments`.`customeruser` (`userid`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+-- Logger(custid) Refers to Customer(custid)
+ALTER TABLE `payments`.`logger` 
+ADD INDEX `fk_custid_customer_idx` (`customerid` ASC) VISIBLE;
+
+ALTER TABLE `payments`.`logger` 
+ADD CONSTRAINT `fk_custid_customer`
+  FOREIGN KEY (`customerid`)
+  REFERENCES `payments`.`customer` (`customerid`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+-- Transaction(custid) Refers to Customer(custid)
+ALTER TABLE `payments`.`transaction` 
+ADD INDEX `fk_customerid_transaction_idx` (`customerid` ASC) VISIBLE;
+;
+ALTER TABLE `payments`.`transaction` 
+ADD CONSTRAINT `fk_customerid_transaction`
+  FOREIGN KEY (`customerid`)
+  REFERENCES `payments`.`customer` (`customerid`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+-- Logger(empid) Refers to Employee(empid)
+
+ALTER TABLE `payments`.`logger` 
+ADD INDEX `fk_empid_logger_idx` (`employeeid` ASC) VISIBLE;
+
+
+ALTER TABLE `payments`.`logger` 
+ADD CONSTRAINT `fk_empid_logger`
+  FOREIGN KEY (`employeeid`)
+  REFERENCES `payments`.`employee` (`employeeid`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+
+-- Transaction(currencycode) Refers to Currency(currencycode)
+
+ALTER TABLE `payments`.`transaction` 
+ADD INDEX `fk_currencycode_idx` (`currencycode` ASC) VISIBLE;
+
+ALTER TABLE `payments`.`transaction` 
+ADD CONSTRAINT `fk_currencycode`
+  FOREIGN KEY (`currencycode`)
+  REFERENCES `payments`.`currency` (`currencycode`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+-- Transaction(senderbic) Refers to Bank(bic)
+ALTER TABLE `payments`.`transaction` 
+ADD INDEX `fk_senderbic_idx` (`senderbic` ASC) VISIBLE;
+ALTER TABLE `payments`.`transaction` 
+ADD CONSTRAINT `fk_senderbic`
+  FOREIGN KEY (`senderbic`)
+  REFERENCES `payments`.`bank` (`bic`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+-- Transaction(receiverbic) Refers to Bank(bic)
+
+ALTER TABLE `payments`.`transaction` 
+ADD INDEX `fk_receiverbic_idx` (`receiverbic` ASC) VISIBLE;
+
+ALTER TABLE `payments`.`transaction` 
+ADD CONSTRAINT `fk_receiverbic`
+  FOREIGN KEY (`receiverbic`)
+  REFERENCES `payments`.`bank` (`bic`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+-- Transaction(transfertypecode) Refers to Transfertypes(transfertypecode)
+
+ALTER TABLE `payments`.`transaction` 
+ADD INDEX `fk_transfertypecode_idx` (`transfertypecode` ASC) VISIBLE;
+
+
+ALTER TABLE `payments`.`transaction` 
+ADD CONSTRAINT `fk_transfertypecode`
+  FOREIGN KEY (`transfertypecode`)
+  REFERENCES `payments`.`transfertypes` (`tranfertypecode`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+-- Transaction(messagecode) Refers to Message(messagecode)
+ALTER TABLE `payments`.`transaction` 
+ADD INDEX `fk_messagecode_idx` (`messagecode` ASC) VISIBLE;
+
+ALTER TABLE `payments`.`transaction` 
+ADD CONSTRAINT `fk_messagecode`
+  FOREIGN KEY (`messagecode`)
+  REFERENCES `payments`.`message` (`messagecode`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
