@@ -10,6 +10,7 @@ import com.example.demo.model.Customer;
 @Repository
 public interface CustomerRepo extends JpaRepository<Customer, String> {
 	
-	Customer findBycustomerid(String id);
+	Customer findByCustomerid(String id);
+	Customer findByAccountholdername(String name);
 
 }

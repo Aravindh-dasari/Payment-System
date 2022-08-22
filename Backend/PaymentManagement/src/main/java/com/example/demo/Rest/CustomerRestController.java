@@ -17,10 +17,17 @@ public class CustomerRestController {
 	@GetMapping("/customer/{id}")
 	public Customer listCustomer(@PathVariable String id){
 		
-		Customer query = customerRepo.findBycustomerid(id);
+		Customer query = customerRepo.findByCustomerid(id);
+//		Optional<Customer> query = customerRepo.findById(id);
 //		System.out.println(query);
 		return query;
 	
+	}
+	
+	@GetMapping("/customer/name/{name}")
+	public Customer listName(@PathVariable String name) {
+		
+		return customerRepo.findByAccountholdername(name);
 	}
 
 }
