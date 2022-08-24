@@ -1,26 +1,25 @@
 package com.example.demo.Rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Repo.CustomerRepo;
-import com.example.demo.model.Customer;
+import com.example.demo.service.CustomerService;
 
 @RestController
 public class CustomerRestController {
 	
 	@Autowired
-	private CustomerRepo customerRepo;
+	private CustomerService service;
 	
 	@GetMapping("/customer/{id}")
-	public Customer listCustomer(@PathVariable String id){
+	public List<Object> listCustomer(@PathVariable String id){
 		
-		Customer query = customerRepo.findByCustomerid(id);
-//		Optional<Customer> query = customerRepo.findById(id);
-//		System.out.println(query);
-		return query;
-	
+		ArrayList<Object> arr = service.lst(id);
+		return arr;
 	}
 }

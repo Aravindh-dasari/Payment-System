@@ -1,5 +1,7 @@
 package com.example.demo.Repo;
 
+import java.util.Optional;
+
 //import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +13,7 @@ import com.example.demo.model.Customer;
 public interface CustomerRepo extends JpaRepository<Customer, String> {
 	
 	// Find to fetch Data
-	Customer findByCustomerid(String id);
+	Optional<Customer> findByCustomerid(String id);
 //	Customer findByAccountholdername(String name);
 
 }

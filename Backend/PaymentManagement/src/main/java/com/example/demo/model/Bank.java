@@ -13,5 +13,26 @@ public class Bank implements Serializable {
     @Id
     private String bic;
     private String bankname;
+	public String getBic() {
+		return bic;
+	}
+	public void setBic(String bic) {
+		this.bic = bic;
+	}
+	public String getBankname() {
+		return bankname;
+	}
+	public void setBankname(String bankname) {
+		this.bankname = bankname;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	@Override
+	public String toString() {
+		return "Bank [bic=" + bic + ", bankname=" + bankname + "]";
+	}
+    
+    
 
 }
