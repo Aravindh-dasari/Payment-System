@@ -23,11 +23,4 @@ public class CustomerRestController {
 		return query;
 	
 	}
-	
-	@GetMapping("/customer/name/{name}")
-	public Customer listName(@PathVariable String name) {
-		
-		return customerRepo.findByAccountholdername(name);
-	}
-
 }
