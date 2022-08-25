@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ public class CustomerService {
 	
 	@Autowired
 	CustomerRepo customerRepo;
+	
+	public List<Customer> AllCustomers(){
+		return customerRepo.findAll();
+	}
 	
 	public ArrayList<Object> lst(String id) {
 		
