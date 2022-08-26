@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.Repo.EmployeeRepo;
 import com.example.demo.model.Employee;
@@ -27,6 +28,14 @@ public class EmployeeService {
 		}
 		
 		return false;
+	}
+	
+	public List<Employee> AllEmp(){
+		
+		List<Employee> emp = employeeRepo.findAll();
+//		System.out.println(emp);
+		return emp;
+		
 	}
 
 }

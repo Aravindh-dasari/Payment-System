@@ -7,6 +7,17 @@ public class Informer implements Serializable {
 	private static final long serialVersionUID = 6182688902788170979L;
 	
 	private Boolean success;
+	private String error;
+	
+	
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
 
 	public Boolean getSuccess() {
 		return success;

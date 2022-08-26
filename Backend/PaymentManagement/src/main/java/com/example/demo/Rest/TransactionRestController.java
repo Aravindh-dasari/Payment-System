@@ -40,20 +40,12 @@ public class TransactionRestController {
 		
 	}
 	
-//	@PathVariable String customerid, String acholdernumber, Boolean typecode, @PathVariable String msgcode, @PathVariable Float currencyamount
+
 	@PostMapping("/transaction")
 	public Informer insertTransaction(@RequestBody Transaction usertransfer) {
 		
 //		Transaction transaction = new Transaction();
-		Informer informer = new Informer();
-		Boolean transfer = service.makeTransaction(usertransfer);
-		
-		if(transfer.equals(true)) {
-			informer.setSuccess(true);
-		}
-		else {
-			informer.setSuccess(false);
-		}
+		Informer informer = service.makeTransaction(usertransfer);
 		
 		return informer;
 		

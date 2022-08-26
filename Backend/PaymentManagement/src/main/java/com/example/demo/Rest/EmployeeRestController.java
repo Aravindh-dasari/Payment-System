@@ -41,12 +41,10 @@ public class EmployeeRestController {
 		
 	}
 	
-	@GetMapping("/allemployee/")
+	@GetMapping("/employee")
 	public List<Employee> listEmployee() {
 		
-		List<Employee> emp = employeeRepo.findAll();
-		System.out.println(emp);
-		return emp;
+		return service.AllEmp();
 		
 	}
 	

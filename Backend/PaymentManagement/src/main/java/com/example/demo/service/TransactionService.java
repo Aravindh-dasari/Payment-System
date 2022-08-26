@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.demo.Repo.TransactionRepo;
+import com.example.demo.model.Informer;
 import com.example.demo.model.Transaction;
 
 @Service
@@ -20,7 +21,9 @@ public class TransactionService {
 		return transactionRepo.findAll();
 	}
 	
-	public Boolean makeTransaction(@RequestBody Transaction usertransfer ) {
+	public Informer makeTransaction(@RequestBody Transaction usertransfer ) {
+		
+		Informer informer = new Informer();
 		
 		try {
 
@@ -33,16 +36,18 @@ public class TransactionService {
 //			
 //			transactionRepo.save(transaction);
 			
-			return true;
+			informer.setSuccess(true);
 		
 		}
 		
 		catch(Exception e){
 			
 			System.out.println(e);
-			return false;
+			informer.setSuccess(false);
+			informer.setError(e.getLocalizedMessage());
 		}
 		
+		return informer;
 	}
 
 }
