@@ -15,10 +15,22 @@ public class Customer implements Serializable {
     private String customerid;
     private String accountholdername;
     private String overdraftflag;
+    private Float overamount;
     private Float clearbalance;
     private String customeraddress;
     private String customercity, customertype;
     
+    public Customer(){
+    	
+    	this.overamount = 5000f;
+    }
+    
+	public Float getOveramount() {
+		return overamount;
+	}
+	public void setOveramount(Float overamount) {
+		this.overamount = overamount;
+	}
 	public String getCustomerid() {
 		return customerid;
 	}

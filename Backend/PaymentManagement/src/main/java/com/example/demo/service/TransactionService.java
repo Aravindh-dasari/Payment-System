@@ -71,9 +71,11 @@ public class TransactionService {
 			informer.setMessage("Sender Found");
 			Float amount = transfer.getInramount();
 			Float sclearbal = sender.getClearbalance();
+			// Float overamount = sender.getOveramount();
+			Float overamount = 5000f;
 			
 			// Updating Sender Clear Balance
-			if(amount <= sclearbal) {
+			if(amount <= sclearbal || (sender.getOverdraftflag().equalsIgnoreCase("Yes") && amount <= sclearbal+overamount)) {
 				
 				informer.setMessage(informer.getMessage()+" Sender Balance Updated");
 				sender.setClearbalance(sclearbal-amount);
