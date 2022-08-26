@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.demo.Repo.TransactionRepo;
 import com.example.demo.model.Transaction;
@@ -13,16 +15,34 @@ public class TransactionService {
 	@Autowired
 	private TransactionRepo transactionRepo;
 	
-	public Boolean makeTransaction(String customerid, String acholdernumber, Boolean typecode, String msgcode, Float currencyamount) {
+	public List<Transaction> lstTransactions(){
 		
-		if()
-		Transaction transaction = new Transaction();
-		transaction.setTransfertypecode(typecode);
-		transaction.setMessagecode(msgcode);
-		transaction.setCurrencyamount(currencyamount);
+		return transactionRepo.findAll();
+	}
+	
+	public Boolean makeTransaction(@RequestBody Transaction usertransfer ) {
 		
-		transactionRepo.save(transaction);
-		return true;
+		try {
+
+			transactionRepo.save(usertransfer);
+			
+//			Transaction transaction = new Transaction();
+//			transaction.setTransfertypecode(usertransfer.getTransfertypecode());
+//			transaction.setMessagecode(usertransfer.getMessagecode());
+//			transaction.setCurrencyamount(usertransfer.getCurrencyamount());
+//			
+//			transactionRepo.save(transaction);
+			
+			return true;
+		
+		}
+		
+		catch(Exception e){
+			
+			System.out.println(e);
+			return false;
+		}
+		
 	}
 
 }

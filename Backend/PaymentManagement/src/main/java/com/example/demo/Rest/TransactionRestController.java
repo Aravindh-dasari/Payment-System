@@ -1,5 +1,6 @@
 package com.example.demo.Rest;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Repo.TransactionRepo;
+import com.example.demo.model.Informer;
 import com.example.demo.model.Transaction;
+import com.example.demo.service.TransactionService;
 
 @RestController
 public class TransactionRestController {
 	
 	@Autowired
 	private TransactionRepo transactionRepo;
+	
+	@Autowired
+	private TransactionService service;
 	
 	@GetMapping("/transaction/{id}")
 	public Transaction listTransaction(@PathVariable Integer id) {
@@ -27,18 +33,29 @@ public class TransactionRestController {
 		
 	}
 	
+	@GetMapping("/transaction")
+	public List<Transaction> listTransaction() {
+		
+		return service.lstTransactions();
+		
+	}
+	
 //	@PathVariable String customerid, String acholdernumber, Boolean typecode, @PathVariable String msgcode, @PathVariable Float currencyamount
-	@PostMapping("/transaction/")
-	public Boolean insertTransaction(@RequestBody Transaction usertransfer) {
+	@PostMapping("/transaction")
+	public Informer insertTransaction(@RequestBody Transaction usertransfer) {
 		
-//		org.hibernate.Transaction tx = 
-		Transaction transaction = new Transaction();
-		transaction.setTransfertypecode(typecode);
-		transaction.setMessagecode(msgcode);
-		transaction.setCurrencyamount(currencyamount);
+//		Transaction transaction = new Transaction();
+		Informer informer = new Informer();
+		Boolean transfer = service.makeTransaction(usertransfer);
 		
-		transactionRepo.save(transaction);
-		return true;
+		if(transfer.equals(true)) {
+			informer.setSuccess(true);
+		}
+		else {
+			informer.setSuccess(false);
+		}
+		
+		return informer;
 		
 	}
 
