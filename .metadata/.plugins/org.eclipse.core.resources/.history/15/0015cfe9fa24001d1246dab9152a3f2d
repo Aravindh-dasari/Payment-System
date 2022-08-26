@@ -1,0 +1,43 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.Repo.CustomerRepo;
+import com.example.demo.model.Customer;
+
+@Service
+public class CustomerService {
+	
+	@Autowired
+	CustomerRepo customerRepo;
+	
+	public List<Customer> AllCustomers(){
+		return customerRepo.findAll();
+	}
+	
+	public ArrayList<Object> lst(String id) {
+		
+		Optional<Customer> customer = customerRepo.findByCustomerid(id);
+		
+//		ArrayList<Object> arr = new ArrayList<Object>();
+		
+		if(customer.isPresent()) {
+			
+			Customer currentcustomer = customer.get();
+
+			Customer newcustomer = new Customer();
+			
+			newcustomer.setAccountholdername(currentcustomer.getAccountholdername());
+			newcustomer.setOverdraftflag(currentcustomer.getOverdraftflag());
+			newcustomer.setClearbalance(currentcustomer.getClearbalance());
+			
+		}
+		
+		return arr;
+	}
+}

@@ -1,0 +1,57 @@
+package com.example.demo.Rest;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.Repo.EmployeeRepo;
+import com.example.demo.model.Employee;
+
+@RestController
+public class EmployeeRestController {
+	
+	@Autowired
+	private EmployeeRepo employeeRepo;
+	
+	@GetMapping("/employee/{id}")
+	public Employee listEmployee(@PathVariable Integer id) {
+		
+		Employee emp = employeeRepo.findByEmployeeid(id);
+		System.out.println(emp);
+		return emp;
+		
+	}
+	
+	@PostMapping("/pass/")
+	public Boolean Checkpass(@RequestBody Employee employee) {
+		
+		Employee record = employeeRepo.findByEmployeeid(employee.getEmployeeid());
+		
+		System.out.println("Given Password:"+ employee.getEmployeepassword());
+		System.out.println("Correct Password:"+ record.getEmployeepassword());
+		System.out.println(record.getEmployeepassword().getClass()+employee.getEmployeepassword().getClass());
+		if(record.getEmployeepassword()==employee.getEmployeepassword()) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	@GetMapping("/allemployee/")
+	public List<Employee> listEmployee() {
+		
+		List<Employee> emp = employeeRepo.findAll();
+		System.out.println(emp);
+		return emp;
+		
+	}
+	
+
+}

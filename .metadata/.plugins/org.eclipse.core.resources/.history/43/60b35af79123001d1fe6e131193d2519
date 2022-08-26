@@ -1,0 +1,37 @@
+package com.example.demo.Rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.Repo.EmployeeRepo;
+import com.example.demo.model.Employee;
+
+@RestController
+public class EmployeeRestController {
+	
+	@Autowired
+	private EmployeeRepo employeeRepo;
+	
+	@GetMapping("/employee/{id}")
+	public Employee listEmployee(Integer id) {
+		
+		Employee emp = employeeRepo.findByEmployeeid(id);
+		System.out.println(emp);
+		return emp;
+		
+	}
+	
+	@GetMapping("/allemployee/{id}")
+	public List<Employee> listEmployee(Integer id) {
+		
+		List<Employee> emp = employeeRepo.findAll(id);
+		System.out.println(emp);
+		return emp;
+		
+	}
+	
+
+}

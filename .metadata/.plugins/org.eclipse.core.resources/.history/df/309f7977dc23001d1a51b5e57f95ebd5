@@ -1,0 +1,29 @@
+package com.example.demo.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.example.demo.model.Employee;
+
+@Service
+public class EmployeeService {
+	
+	public Boolean passCheck(@PathVariable Integer id, @PathVariable String password) {
+		
+Employee record = employeeRepo.findByEmployeeid(employee.getEmployeeid());
+		
+		System.out.println("Given Password:"+ employee.getEmployeepassword());
+		System.out.println("Correct Password:"+ record.getEmployeepassword());
+		String correct = record.getEmployeepassword();
+		String userpass = employee.getEmployeepassword();
+		System.out.println(correct.equals(userpass));
+		
+		if(record.getEmployeepassword().equals(employee.getEmployeepassword())) {
+			
+			return true;
+		}
+		
+		return false;
+	}
+
+}
