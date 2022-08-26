@@ -22,10 +22,10 @@ public class CustomerRestController {
 	private CustomerService service;
 	
 	@GetMapping("/customer/{id}")
-	public List<Object> listCustomer(@PathVariable String id){
+	public Customer listCustomer(@PathVariable String id){
 		
-		ArrayList<Object> arr = service.lst(id);
-		return arr;
+		Customer customer = service.lstonecustomer(id);
+		return customer;
 	}
 	
 	@GetMapping("/customers")

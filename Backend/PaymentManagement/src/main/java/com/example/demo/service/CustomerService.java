@@ -20,22 +20,25 @@ public class CustomerService {
 		return customerRepo.findAll();
 	}
 	
-	public ArrayList<Object> lst(String id) {
+	public Customer lstonecustomer(String id) {
 		
 		Optional<Customer> customer = customerRepo.findByCustomerid(id);
 		
-		ArrayList<Object> arr = new ArrayList<Object>();
+//		ArrayList<Object> arr = new ArrayList<Object>();
+		
+		Customer newcustomer = new Customer();
 		
 		if(customer.isPresent()) {
 			
 			Customer currentcustomer = customer.get();
-			
-			arr.add(currentcustomer.getAccountholdername());
-			arr.add(currentcustomer.getOverdraftflag());
-			arr.add(currentcustomer.getClearbalance());
+
+			newcustomer.setCustomerid(currentcustomer.getCustomerid());
+			newcustomer.setAccountholdername(currentcustomer.getAccountholdername());
+			newcustomer.setOverdraftflag(currentcustomer.getOverdraftflag());
+			newcustomer.setClearbalance(currentcustomer.getClearbalance());
 			
 		}
 		
-		return arr;
+		return newcustomer;
 	}
 }
