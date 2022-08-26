@@ -19,7 +19,7 @@ public class Transaction implements Serializable {
     private int transactionid;
     private String customerid;
     private String currencycode;
-    private String senderBIC;
+    private String senderBIC; // need to be Removed
     private String receiverBIC;
     private String receiveraccountholdernumber;
     private String receiveraccountholdername;

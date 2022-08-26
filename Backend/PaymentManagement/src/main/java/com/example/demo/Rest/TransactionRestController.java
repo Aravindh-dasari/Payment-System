@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,10 +46,25 @@ public class TransactionRestController {
 	public Informer insertTransaction(@RequestBody Transaction usertransfer) {
 		
 //		Transaction transaction = new Transaction();
-		Informer informer = service.makeTransaction(usertransfer);
+		Informer informer = service.insertTransaction(usertransfer);
 		
 		return informer;
 		
+	}
+	
+	@PutMapping("/transfer")
+	public Informer makeTransaction(@RequestBody Transaction transfer) {
+		
+		Informer makeinformer = service.makeTransfer(transfer);
+		Informer insertinformer = service.insertTransaction(transfer);
+		
+		makeinformer.setMessage(insertinformer.getMessage()+" "+makeinformer.getMessage());
+		makeinformer.setError(insertinformer.getError()+" "+makeinformer.getError());
+		if(makeinformer.getSuccess().equals(insertinformer.getSuccess())) {
+			makeinformer.setSuccess(true);
+		}
+		
+		return makeinformer;
 	}
 
 }
