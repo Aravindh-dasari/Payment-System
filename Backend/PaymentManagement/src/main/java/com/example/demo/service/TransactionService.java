@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,9 +64,10 @@ public class TransactionService {
 		String rid = transfer.getReceiveraccountholdernumber();
 		
 		// Sender Part
-		Customer sender = customerRepo.findById(sid).get();
-		if(sender!=null) 
+		Optional<Customer> senderoption = customerRepo.findById(sid);
+		if(senderoption.isPresent()) 
 		{
+			Customer sender = senderoption.get();
 			informer.setMessage("Sender Found");
 			Float amount = transfer.getInramount();
 			Float sclearbal = sender.getClearbalance();
@@ -78,12 +80,18 @@ public class TransactionService {
 				informer.setSuccess(true);
 			
 			}
+			else {
+				
+				informer.setSuccess(false);
+			}
 			
 			// Receiver Part
-			Customer receiver = customerRepo.findById(rid).get();
+			Optional<Customer> receiveroption = customerRepo.findById(rid);
 			
 			// Updating Receiver
-			if(receiver!=null) {
+			if(informer.getSuccess().equals(true)&&  receiveroption.isPresent()) {
+				
+				Customer receiver = receiveroption.get();
 				
 				Float rclearbal = receiver.getClearbalance();
 				receiver.setClearbalance(rclearbal+amount);
