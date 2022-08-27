@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Repo.EmployeeRepo;
 import com.example.demo.model.Employee;
+import com.example.demo.model.Informer;
 
 @Service
 public class EmployeeService {
@@ -14,9 +15,10 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepo employeeRepo;
 	
-	public Boolean passCheck(Integer id,String userpassword) {
+	public Informer passCheck(Integer id,String userpassword) {
 		
 		Employee record = employeeRepo.findByEmployeeid(id);
+		Informer informer = new Informer();
 		
 		System.out.println("Correct Password:"+ record.getEmployeepassword());
 		String correct = record.getEmployeepassword();
@@ -24,10 +26,18 @@ public class EmployeeService {
 		
 		if(correct.equals(userpassword)) {
 			
-			return true;
+			informer.setSuccess(true);
+			informer.setMessage("Sucess Login");
 		}
 		
-		return false;
+		else {
+			
+			informer.setSuccess(false);
+			informer.setMessage("Failed Login");
+			
+		}
+		
+		return informer;
 	}
 	
 	public List<Employee> AllEmp(){
