@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.Repo.MessageRepo;
 import com.example.demo.model.Message;
@@ -19,6 +18,11 @@ public class MessageService {
 	public List<Message> lstAll() {
 		
 		return messageRepo.findAll();
+	}
+	
+	public List<Object[]> countMessagesByType() {
+		
+		return messageRepo.countMessageByType();
 	}
 
 }

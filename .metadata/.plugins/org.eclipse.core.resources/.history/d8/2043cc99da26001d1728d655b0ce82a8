@@ -1,0 +1,24 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.demo.Repo.MessageRepo;
+import com.example.demo.model.Message;
+
+@Service
+public class MessageService {
+	
+	@Autowired
+	private MessageRepo messageRepo;
+	
+	
+	public List<Message> lstAll() {
+		
+		return messageRepo.findAll();
+	}
+
+}

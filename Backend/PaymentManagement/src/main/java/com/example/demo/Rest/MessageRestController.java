@@ -20,4 +20,10 @@ public class MessageRestController {
 		
 		return service.lstAll();
 	}
+	
+	@GetMapping("/message/pie")
+	public List<Object[]> FrequencymsgType(){
+		
+		return service.countMessagesByType();
+	}
 }

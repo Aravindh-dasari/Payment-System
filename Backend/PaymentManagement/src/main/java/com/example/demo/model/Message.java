@@ -14,6 +14,7 @@ public class Message implements Serializable {
     @Id
     private String messagecode;
     private String instruction;
+    
 	public String getMessagecode() {
 		return messagecode;
 	}
