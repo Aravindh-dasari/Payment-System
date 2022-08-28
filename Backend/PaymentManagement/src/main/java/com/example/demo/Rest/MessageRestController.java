@@ -22,10 +22,16 @@ public class MessageRestController {
 		return service.lstAll();
 	}
 	
-	@GetMapping("/message/pie")
-	public Informer FrequencymsgType(){
+	@GetMapping("/message/allpie")
+	public Informer AllFrequencymsgType(){
 		
 		return service.countMessagesByType();
 		
+	}
+	
+	@GetMapping("/message/pie")
+	public Informer msgFrequency() {
+		
+		return service.PieMessages();
 	}
 }

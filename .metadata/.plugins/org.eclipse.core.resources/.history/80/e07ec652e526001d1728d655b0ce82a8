@@ -1,0 +1,15 @@
+package com.example.demo.Repo;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.example.demo.model.Message;
+
+public interface MessageRepo extends JpaRepository<Message, String> {
+	
+	@Query(value = "SELECT t.messagecode, COUNT(t.messagecode) AS Frequency FROM Transaction AS t group by t.messagecode")
+	List<Object[]> countMessageByType();
+
+}

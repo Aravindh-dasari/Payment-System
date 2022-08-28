@@ -1,0 +1,76 @@
+package com.example.demo.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class Informer implements Serializable {
+
+	private static final long serialVersionUID = 6182688902788170979L;
+	
+	private Boolean success;
+	private String message;
+	private String error;
+	private List<Object[]> pie;
+	private List<Object> pieMessage;
+	private List<Object> pieFrequency;
+
+	public List<Object> getPieMessage() {
+		return pieMessage;
+	}
+
+	public void setPieMessage(List<Object> pieMessage) {
+		this.pieMessage = pieMessage;
+	}
+
+	public List<Object> getPieFrequency() {
+		return pieFrequency;
+	}
+
+	public void setPieFrequency(List<Object> pieFrequency) {
+		this.pieFrequency = pieFrequency;
+	}
+
+	public List<Object[]> getPie() {
+		return pie;
+	}
+
+	public void setPie(List<Object[]> pie) {
+		this.pie = pie;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public Boolean getSuccess() {
+		return success;
+	}
+
+	public void setSuccess(Boolean success) {
+		this.success = success;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "Informer [success=" + success + "]";
+	}
+	
+	
+
+}

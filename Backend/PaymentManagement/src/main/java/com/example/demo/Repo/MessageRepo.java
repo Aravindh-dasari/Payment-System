@@ -9,7 +9,13 @@ import com.example.demo.model.Message;
 
 public interface MessageRepo extends JpaRepository<Message, String> {
 	
-	@Query(value = "SELECT t.messagecode, COUNT(t.messagecode) AS Frequency FROM Transaction  AS t group by t.messagecode")
+	@Query(value = "SELECT t.messagecode, COUNT(t.messagecode) AS Frequency FROM Transaction AS t group by t.messagecode")
 	List<Object[]> countMessageByType();
+	
+	@Query(value = "SELECT messagecode as Messages FROM Transaction where messagecode IS NOT NULL group by messagecode Order by messagecode")
+	List<String> AllMessage();
+	
+	@Query(value = "SELECT COUNT(messagecode) AS Frequency FROM Transaction where messagecode IS NOT NULL group by messagecode order by messagecode")
+	List<Integer> MessageFrequency();
 
 }

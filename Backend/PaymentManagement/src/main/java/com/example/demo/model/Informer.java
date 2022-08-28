@@ -11,6 +11,24 @@ public class Informer implements Serializable {
 	private String message;
 	private String error;
 	private List<Object[]> pie;
+	private List<String> pieMessage;
+	private List<Integer> pieFrequency;
+
+	public List<String> getPieMessage() {
+		return pieMessage;
+	}
+
+	public void setPieMessage(List<String> pieMessage) {
+		this.pieMessage = pieMessage;
+	}
+
+	public List<Integer> getPieFrequency() {
+		return pieFrequency;
+	}
+
+	public void setPieFrequency(List<Integer> pieFrequency) {
+		this.pieFrequency = pieFrequency;
+	}
 
 	public List<Object[]> getPie() {
 		return pie;

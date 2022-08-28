@@ -30,5 +30,15 @@ public class MessageService {
 		
 		return informer;
 	}
+	
+	public Informer PieMessages() {
+		
+		Informer informer = new Informer();
+		
+		informer.setPieMessage(messageRepo.AllMessage());
+		informer.setPieFrequency(messageRepo.MessageFrequency());
+		
+		return informer;
+	}
 
 }
