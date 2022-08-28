@@ -71,11 +71,10 @@ public class Transaction implements Serializable {
 	public void setReceiveraccountholdername(String receiveraccountholdername) {
 		this.receiveraccountholdername = receiveraccountholdername;
 	}
-	
-	public String getTransfertypecode() {
+	public Boolean getTransfertypecode() {
 		return transfertypecode;
 	}
-	public void setTransfertypecode(String transfertypecode) {
+	public void setTransfertypecode(Boolean transfertypecode) {
 		this.transfertypecode = transfertypecode;
 	}
 	public String getMessagecode() {

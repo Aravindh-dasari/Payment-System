@@ -23,7 +23,7 @@ public class Transaction implements Serializable {
     private String receiverBIC;
     private String receiveraccountholdernumber;
     private String receiveraccountholdername;
-    private String transfertypecode; // CT=0 and BT=1
+    private Boolean transfertypecode; // CT=0 and BT=1
     private String messagecode;
     private Float currencyamount;
     private Float tranferfees;
@@ -71,11 +71,10 @@ public class Transaction implements Serializable {
 	public void setReceiveraccountholdername(String receiveraccountholdername) {
 		this.receiveraccountholdername = receiveraccountholdername;
 	}
-	
-	public String getTransfertypecode() {
+	public Boolean getTransfertypecode() {
 		return transfertypecode;
 	}
-	public void setTransfertypecode(String transfertypecode) {
+	public void setTransfertypecode(Boolean transfertypecode) {
 		this.transfertypecode = transfertypecode;
 	}
 	public String getMessagecode() {

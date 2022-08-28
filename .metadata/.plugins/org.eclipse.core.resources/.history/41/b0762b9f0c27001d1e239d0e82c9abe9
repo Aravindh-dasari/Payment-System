@@ -13,8 +13,6 @@ public class Transfertypes implements Serializable {
 	@Id
     private String tranfertypecode;
     private String transfertypedescription;
-	
-    
 	public String getTranfertypecode() {
 		return tranfertypecode;
 	}

@@ -11,14 +11,12 @@ public class Transfertypes implements Serializable {
 	private static final long serialVersionUID = 3873863335946422592L;
 	
 	@Id
-    private String tranfertypecode;
+    private Boolean tranfertypecode;
     private String transfertypedescription;
-	
-    
-	public String getTranfertypecode() {
+	public Boolean getTranfertypecode() {
 		return tranfertypecode;
 	}
-	public void setTranfertypecode(String tranfertypecode) {
+	public void setTranfertypecode(Boolean tranfertypecode) {
 		this.tranfertypecode = tranfertypecode;
 	}
 	public String getTransfertypedescription() {
