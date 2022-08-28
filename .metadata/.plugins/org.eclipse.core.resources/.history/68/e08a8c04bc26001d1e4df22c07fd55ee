@@ -1,0 +1,25 @@
+package com.example.demo.service;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class SdnReadtext {
+	
+	public String readFileAsString(String fileName)throws Exception
+	  {
+	    String data = "";
+//	    data = new String(Files.readAllBytes(Paths.get(fileName)));
+	    data = readFileAsString("C:\\Users\\Administrator\\Downloads\\DBS Training 2022 Payment Project\\sdnlist.txt");
+	    return data;
+	  }
+	 
+	  public static void main(String[] args) throws Exception
+	  {
+//		  String data = readFileAsString("C:\\Users\\pankaj\\Desktop\\test.java");
+		  String data = readFileAsString("C:\\Users\\Administrator\\Downloads\\DBS Training 2022 Payment Project\\sdnlist.txt");
+//		  String data = readFileAsString("C:\\Users\\pankaj\\Desktop\\test.java");
+		  System.out.println(data.contains("Revanthnath"));
+//		  return data;
+	  }
+
+}

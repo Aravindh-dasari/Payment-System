@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,17 +54,22 @@ public class TransactionRestController {
 		
 	}
 	
-	@PutMapping("/transfer")
+	@PostMapping("/transfer")
 	public Informer makeTransaction(@RequestBody Transaction transfer) {
 		
 		Informer makeinformer = service.makeTransfer(transfer);
-		Informer insertinformer = service.insertTransaction(transfer);
-		
-		makeinformer.setMessage(insertinformer.getMessage()+" "+makeinformer.getMessage());
-		makeinformer.setError(insertinformer.getError()+" "+makeinformer.getError());
-		if(makeinformer.getSuccess().equals(insertinformer.getSuccess())) {
-			makeinformer.setSuccess(true);
+		if(makeinformer.getSuccess().equals(true)) {
+
+			Informer insertinformer = service.insertTransaction(transfer);
+			
+			makeinformer.setMessage(insertinformer.getMessage()+" "+makeinformer.getMessage());
+			makeinformer.setError(insertinformer.getError()+" "+makeinformer.getError());
+			if(makeinformer.getSuccess().equals(insertinformer.getSuccess())) {
+				makeinformer.setSuccess(true);
+			}
+			
 		}
+		
 		
 		return makeinformer;
 	}

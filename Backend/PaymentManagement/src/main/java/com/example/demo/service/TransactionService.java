@@ -22,6 +22,9 @@ public class TransactionService {
 	@Autowired
 	private CustomerRepo customerRepo;
 	
+	@Autowired
+	private SdnReadtext sdn;
+	
 	public List<Transaction> lstTransactions(){
 		
 		return transactionRepo.findAll();
@@ -56,7 +59,7 @@ public class TransactionService {
 		return informer;
 	}
 	
-	public Informer makeTransfer(Transaction transfer) {
+	public Informer makeTransfer(Transaction transfer){
 		
 		Informer informer = new Informer();
 		
@@ -64,9 +67,26 @@ public class TransactionService {
 		String rid = transfer.getReceiveraccountholdernumber();
 		
 		// Sender Part
-		Optional<Customer> senderoption = customerRepo.findById(sid);
-		if(senderoption.isPresent()) 
+		//Check SDN List
+		String sdnList = "";
+		try {
+			sdnList = sdn.readFileAsString("C:\\Users\\Administrator\\Downloads\\DBS Training 2022 Payment Project\\sdnlist.txt");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("SDNFile.txt Not Loaded!");
+			e.printStackTrace();
+		}
+		
+		String recName = transfer.getReceiveraccountholdername();
+		
+		if(sdnList.contains(recName)==false) 
 		{
+		
+		Optional<Customer> senderoption = customerRepo.findById(sid);
+
+		if(senderoption.isPresent()) 
+		{	
+			
 			Customer sender = senderoption.get();
 			informer.setMessage("Sender Found");
 			Float amount = transfer.getInramount();
@@ -90,6 +110,7 @@ public class TransactionService {
 			// Receiver Part
 			Optional<Customer> receiveroption = customerRepo.findById(rid);
 			
+			
 			// Updating Receiver
 			if(informer.getSuccess().equals(true)&&  receiveroption.isPresent()) {
 				
@@ -100,6 +121,11 @@ public class TransactionService {
 				informer.setMessage(informer.getMessage()+" Receiver Balance Updated");
 				
 			}
+		}
+		}
+		else {
+			informer.setSuccess(false);
+			informer.setMessage("Receiver is in SDN List");
 		}
 		
 		return informer;
