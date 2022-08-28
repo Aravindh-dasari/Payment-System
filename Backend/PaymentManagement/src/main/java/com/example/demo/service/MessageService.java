@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Repo.MessageRepo;
+import com.example.demo.model.Informer;
 import com.example.demo.model.Message;
 
 @Service
@@ -20,9 +21,14 @@ public class MessageService {
 		return messageRepo.findAll();
 	}
 	
-	public List<Object[]> countMessagesByType() {
+	public Informer countMessagesByType() {
 		
-		return messageRepo.countMessageByType();
+		Informer informer = new Informer();
+		
+		List<Object[]> pie = messageRepo.countMessageByType();
+		informer.setPie(pie);
+		
+		return informer;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Informer implements Serializable {
 
@@ -9,6 +10,15 @@ public class Informer implements Serializable {
 	private Boolean success;
 	private String message;
 	private String error;
+	private List<Object[]> pie;
+
+	public List<Object[]> getPie() {
+		return pie;
+	}
+
+	public void setPie(List<Object[]> pie) {
+		this.pie = pie;
+	}
 
 	public String getMessage() {
 		return message;

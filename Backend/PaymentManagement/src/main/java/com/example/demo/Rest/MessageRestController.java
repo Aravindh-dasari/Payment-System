@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Informer;
 import com.example.demo.model.Message;
 import com.example.demo.service.MessageService;
 
@@ -22,8 +23,9 @@ public class MessageRestController {
 	}
 	
 	@GetMapping("/message/pie")
-	public List<Object[]> FrequencymsgType(){
+	public Informer FrequencymsgType(){
 		
 		return service.countMessagesByType();
+		
 	}
 }
