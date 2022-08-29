@@ -15,43 +15,10 @@ import { CustTable } from './CustTable';
 
 
 export function CustomerDetails(){
-    let navigate=useNavigate();
-    const transferNav=()=>{
-        navigate("/transfer");
-      }
-      const customerdetailsNav=()=>{
-        navigate("/customerdetails");}
-      const homeNav=()=>{
-          navigate("/home");}
-      const transactionNav=()=>{
-              navigate("/transactionpage");}
-      const dashboardNav=()=>{
-                  navigate("/dashboard");}
-      
+  
             
     return (
-      <div>
-        <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button color="inherit" onClick={homeNav}>Home</Button>
-         <Button color="inherit" onClick={transactionNav}>Transactions</Button> 
-         <Button color="inherit" onClick={dashboardNav}>Dashboard</Button>
-         <Button color="inherit" onClick={customerdetailsNav} >Customer Details</Button>
-         <Button color="inherit"  onClick={transferNav}>Transfer</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
    <CustTable/> 
-   </div> 
+
     )  
 }

@@ -3,13 +3,12 @@ import axios from "axios"
 import { useState,useEffect } from "react"
 import { CircularProgress } from "@mui/material/CircularProgress"
 import { Link } from "react-router-dom"
-export function CustTable(){
-    const[customers,setCustomers]=useState(null)
-   // const[city,setCity]=useState(null)
+export function TransactionTable(){
+    const[transactions,setTransactions]=useState(null)
     useEffect(()=>{
-        axios.get("http://localhost:8080/customer/")
+        axios.get("http://localhost:8080/transaction")
         .then(res=>{
-            setCustomers(res.data)
+            setTransactions(res.data)
             console.log(res.data)
         })
         .catch(err=>{
@@ -17,14 +16,16 @@ export function CustTable(){
         })
     },[])
     const getTableRows=()=>{
-        const rows=customers.map(c=>{
-            return (<tr key={c.customerid}>
-                <td>{c.customerid}</td>
-                <td>{c.accountholdername}</td>
+        const rows=transactions.map(t=>{
+            return (<tr key={t.transactionid}>
+                <td>{t.transactionid}</td>
+                <td>{t.customerid}</td>
+                <td>{t.receiveraccountholdernumber}</td>
+                <td>{t.inramount}</td>
                 <td>
-                    <Link to={"/customers/"+c.customerid}> View </Link>
-                    <Link to={"/delete"}>Delete</Link>
+                    <Link to={"/transaction/"+t.transactionid}> View </Link>
                 </td>
+
             </tr>
             )
         })
@@ -32,14 +33,16 @@ export function CustTable(){
     }
     return(
         <div>
-            <h2>List of Customers</h2>
-            {customers ?
+            <h2>Transaction History</h2>
+            {transactions ?
             <table>
                 <thead>
                 <tr>
-                    <th>CUSTID</th>
-                    <th>CUSTNAME</th>
-                    <th>Action</th>
+                    <th>Transaction ID</th>
+                    <th>Sender ID</th>
+                    <th>Receiver Account Holder Numeber</th>
+                    <th>Amount transferred</th>
+                    
                 </tr>
                 </thead>
                 <tbody>
@@ -54,7 +57,7 @@ export function CustTable(){
 }
 
     <div>
-        <h3>List of customers</h3>
+        <h3>Transaction History</h3>
         {/* {customers?getTableRows:<h3>Loading</h3>} */}
         
     </div>

@@ -1,15 +1,35 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import SenderService from '../services/SenderService';
 import BankService from '../services/BankService';
-import DatePicker from 'react-datetime';
+import DatePicker from 'react-datetime-picker';
 import moment from 'moment';
-//import 'react-datetime/css/react-datetime.css';
+import 'react-datetime/css/react-datetime.css';
 import MessageService from '../services/MessageService';
 import ReceiverService from '../services/ReceiverService';
 import TransactionService from '../services/TransactionService';
 import { useNavigate } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+//import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+
 
 export  function Transfer() {
+    let navigate=useNavigate();
+    const transferNav=()=>{
+        navigate("/transfer");
+      }
+      const customerdetailsNav=()=>{
+        navigate("/customerdetails");}
+      const homeNav=()=>{
+          navigate("/home");}
+      const transactionNav=()=>{
+              navigate("/transactionpage");}
+      const dashboardNav=()=>{
+                  navigate("/dashboard");}
+    
 
     //---------------Sender Auto pop-up-------------------
 
@@ -17,11 +37,11 @@ export  function Transfer() {
     const [sender, setSender] = useState([]);
     const [error_id, setError_id] = useState("")
 
-    const onSenderId = async (e) => {
+    const onSenderId = (e) => {
         const sender_id = e.target.value;
         if (sender_id !== "") {
             setSender_id(sender_id);
-            await SenderService.getSenderById(sender_id)
+             SenderService.getSenderById(sender_id)
                 .then((response) => {
                     //console.log(response.data);
                     setSender(response.data);
@@ -55,13 +75,13 @@ export  function Transfer() {
     const [bank, setBank] = useState([]);
     const [error_bank, setError_bank] = useState("");
 
-    const onBIC =async (e) => {
+    const onBIC =(e) => {
         const bic = e.target.value;
         setBic(bic);
-        await BankService.getAllBanksByBic(bic)
+        BankService.getAllBanksByBic(bic)
             .then((response) => {
                 console.log(response.data)
-                setBank(response.data);
+                setBank(response.data.message);
                 setError_bank("");
             }
             ).catch((error) => {
@@ -75,7 +95,9 @@ export  function Transfer() {
             });
     }
 
-    const [message_real, setMessage_real] = useState("CHQB");
+    
+    
+    
 
 
     //----------------------------SANCTION LIST----------------------------------
@@ -183,7 +205,8 @@ export  function Transfer() {
 
     //-----------------------------MESSAGE INFO-----------------------------------------
 
-    const [message, setMessage] = useState([]);
+    const [messagee, setMessagee] = useState([]);
+    const [message_real, setMessage_real] = useState("CHQB");
 
     useEffect(() => {
         getAllMessages()
@@ -192,25 +215,24 @@ export  function Transfer() {
     const getAllMessages = () => {
         MessageService.getAllMessages()
             .then(response => {
-                setMessage(response.data);
+                setMessagee(response.data);
             }).catch(error => {
                 console.log(error);
             })
     }
 
-
+    
 
     //------------------------- Date --------------------------------
 
-    const [date, setDate] = useState()
+    const [date, setDate] = useState(moment().format("YYYY-MM-DD"))
 
     const yesterday = moment().subtract(1, 'day');
-    const tomorrow = moment().add(0, 'day')
+    //const tomorrow = moment().add(0, 'day')
 
     const disableWeekends = current => {
         // return false;
-        return current.day() !== 0 && current.day() !== 6 && current.isAfter(yesterday) && current.isBefore(tomorrow);
-    }
+        return current.day() !== 0 && current.day() !== 6 && current.isAfter(yesterday);}
 
     //---------------------Transfer Type----------------------------------
 
@@ -218,16 +240,16 @@ export  function Transfer() {
 
     //-------------------------FORM HANDLING----------------------------
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const formHandle = (e) => {
         e.preventDefault();
-        console.log("Form Handle")
+        console.log("Form Handle");
 
         const error = (error_id === "") ? ((error_bank === "") ? ((error_receiver === "") ? ((error_amount === "" ? true : error_amount)) : error_receiver) : error_bank) : error_id;
         const error1 = (receiver_Id === "") ? "Receiver Account Number" : (receiver_name === "") ? "Receiver Name" : (sender_id === "") ? "Sender ID" : ((bic === "") ? ("bic") : ((amount === "") ? "amount" : true));
 
-        if (error !== true || error1 !== true) {
+        if (error1!==true &&( (sender.name).includes("BANK") && (transfer_type==="Customer Type"))) {
             console.log("First if")
             if (error !== true)
             {
@@ -235,9 +257,10 @@ export  function Transfer() {
                 window.alert(error);
             }
             else
-                window.alert("Please enter " + error1);
+                 window.alert("Please enter " + error1);
         }
         else {
+            console.log("else")
             if (false && date == null) {
                 alert("Enter the date")
             }
@@ -245,33 +268,41 @@ export  function Transfer() {
                 console.log("Else Part")
                 sender.clearbalance = updated_clear;
                 receiver.clearbalance = updated_clear_receiver;
-                SenderService.updateSenderDetails(sender_id, sender)
-                    .then(response => {
-                        console.log(response.data)
-                        if (response.data) {
-                            window.alert("Details updated");
-                            let clear_balance = updated_clear;
-                            let transaction_Id = moment().format("YYYYMMDDHHmmSS");
-                            let transfer = transfer_fee;
-                            let trans_date = date.format("YYYY-MM-DD");
-                            const transaction = {
-                                "sid":sender_id, 
-                                receiver_name,
-                                receiver_Id, bic, amount, transfer,
-                                clear_balance, trans_date, message_real, transfer_type
-                            };
+                // console.log(sender)
+                // TransactionService.createTransaction(sender_id, sender)
+                // console.log(response.data)
+                // if (response.data.message) {
+                    window.alert("Details updated");
+                    let clear_balance = updated_clear;
+                    // let transaction_Id = moment().format("YYYYMMDDHHmmSS");
+                    let transfer = transfer_fee;
+                    // let trans_date = date.format("YYYY-MM-DD");
+                    const transaction = {
+                        "customerid":sender_id, 
+                        "receiveraccountholdername": 'Alex',
+                       "receiveraccountholdernumber": receiver_Id, "receiverbic":bic, 
+                       "inramount":amount,"tranferfees": transfer,
+                          "messagecode": message_real, "transfertypecode":transfer_type
+                    };
 
-                            console.log(transaction);
-                            TransactionService.createTransaction(transaction);
-                        }
-                        else {
-                            window.alert("Transaction Failed, Try again");
-                        }
-                    }).catch(error => {
-                        window.alert(error);
+                    console.log(transaction);
+                    TransactionService.createTransaction
+                    (transaction)
+                    .then(response=>{
+                        navigate("/transactionpage");
+                    }).catch(error =>{
+                        window.alert("Error in transaction");
                     })
+                    // .then(response => {
+                    //     }
+                    //     else {
+                    //         window.alert("Transaction Failed, Try again");
+                    //     }
+                    // }).catch(error => {
+                    //     window.alert(error);
+                    // })
 
-                ReceiverService.updateReceiverDetails(receiver_Id, receiver);
+                // ReceiverService.updateReceiverDetails(receiver_Id, receiver);
             }
         }
 
@@ -286,18 +317,18 @@ export  function Transfer() {
             <section className="transfer">
                 <div className="dart-overlay1">
                     <div className="transfer-inner">
-                        <h1 className="large">Transfer Page </h1>
+                        <h1 className="large">Transfer Amount</h1>
                         <div className="box">
                             <form >
-                                <label >Calender Date </label><span style={{ color: "red" }} >*</span>
+                                <label >Transaction Date </label><span style={{ color: "red" }} >*</span>
                                 <DatePicker
                                     timeFormat={false}
                                     dateFormat="DD-MM-YYYY"
-                                    // isValidDate={disableWeekends}
+                                    isValidDate={disableWeekends}
                                     selected={date}
                                     onChange={date => setDate(date)}
                                     // required
-                                />
+                                /><br></br>
                                 <label >Customer Id</label> <span style={{ color: "red" }} >*</span>
                                 <div className="error">
                                     <input type="number"
@@ -378,13 +409,14 @@ export  function Transfer() {
                                 <select id="message_code" className="form-select"
                                     value={message_real}
                                     onChange={(e) => {
-                                        setMessage_real(e.target.value);
+                                        setMessage_real(e.target.value.messagecode);
+                                        // setMessage_real('CHQB');
                                     }}
                                     required >
                                     {
-                                        message.map((value) => (
-                                            <option key={value.messagecode} value={value.messagecode}>
-                                                {value.messsagecode}-{value.instruction}
+                                        messagee.map((value) => (
+                                            <option>
+                                                {value.messagecode}-{value.instruction}
                                             </option>
                                         )
                                         )
@@ -431,5 +463,7 @@ export  function Transfer() {
                 </div>
             </section>
         </Fragment>
+        
     )
 }
+

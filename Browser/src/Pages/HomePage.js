@@ -27,32 +27,5 @@ export function HomePage()
      navigate("/customerdetails");
                 }
    
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Transfer
-          </Typography> */}
 
-         {/* <Button color="inherit">Transfer</Button> */}
-         <Button color="inherit" onClick={homeNav}>Home</Button>
-         <Button color="inherit" onClick={transactionNav}>Transactions</Button> 
-         <Button color="inherit" onClick={dashboardNav}>Dashboard</Button>
-         <Button color="inherit" onClick={customerdetailsNav}>Customer Details</Button>
-         <Button color="inherit"  onClick={transferNav}>Transfer</Button>
-         
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
 }
