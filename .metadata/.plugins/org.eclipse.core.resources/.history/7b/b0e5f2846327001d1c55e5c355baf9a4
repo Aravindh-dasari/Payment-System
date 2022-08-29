@@ -44,7 +44,7 @@ public class TransactionRestController {
 	}
 	
 
-	@PostMapping("/transactioninsert")
+	@PostMapping("/transaction")
 	public Informer insertTransaction(@RequestBody Transaction usertransfer) {
 		
 //		Transaction transaction = new Transaction();
