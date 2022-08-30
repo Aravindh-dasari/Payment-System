@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,10 @@ public class EmployeeService {
 	
 	public Informer passCheck(Integer id,String userpassword) {
 		
-		Employee record = employeeRepo.findByEmployeeid(id);
+		Optional<Employee> optional = employeeRepo.findByEmployeeid(id);
 		Informer informer = new Informer();
-		
+		if(optional.isPresent()) {
+			Employee record = optional.get();
 		System.out.println("Correct Password:"+ record.getEmployeepassword());
 		String correct = record.getEmployeepassword();
 		System.out.println(correct.equals(userpassword));
@@ -34,6 +36,13 @@ public class EmployeeService {
 			
 			informer.setSuccess(false);
 			informer.setMessage("Failed Login");
+			
+		}
+		}
+		else {
+			
+			informer.setSuccess(false);
+			informer.setMessage("User Not Found");
 			
 		}
 		

@@ -65,6 +65,7 @@ public class TransactionService {
 		
 		String sid = transfer.getCustomerid();
 		String rid = transfer.getReceiveraccountholdernumber();
+		Float tfee = transfer.getTranferfees();
 		
 		// Sender Part
 		//Check SDN List
@@ -89,8 +90,9 @@ public class TransactionService {
 			
 			Customer sender = senderoption.get();
 			informer.setMessage("Sender Found");
-			Float amount = transfer.getInramount();
+			Float amount = transfer.getInramount()+tfee;
 			Float sclearbal = sender.getClearbalance();
+			
 			// Float overamount = sender.getOveramount();
 			Float overamount = 5000f;
 			

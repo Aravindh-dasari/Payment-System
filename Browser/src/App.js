@@ -55,7 +55,7 @@ function App() {
   }
   function nav() {
     return (<Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static">
+    <AppBar position="static" style={{background:'#ba000d'}}>
       <Toolbar>
         {/* <Button color="inherit" onClick={homeNav}>Home</Button> */}
         <Button color="inherit" onClick={transactionNav}>Transactions</Button>
